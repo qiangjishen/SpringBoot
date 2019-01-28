@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 
+	/**
+	 * 注释
+	 * @return
+	 */
 	@RequestMapping(value = "/getUser")
 	public List<String> getUser(){
 		List<String> list = new ArrayList<String>();
