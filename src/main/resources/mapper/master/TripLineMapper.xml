@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cnnic.cnnicwebframework.mapper.TripLineMapper">
+  <resultMap id="BaseResultMap" type="cn.cnnic.cnnicwebframework.home.vo.TripLine">
+    <id column="line_id" jdbcType="INTEGER" property="lineId" />
+    <result column="line_name" jdbcType="VARCHAR" property="lineName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    line_id, line_name
+  </sql>
+  
+  
+    <sql id="queryCondition" >
+    <where >
+      <trim prefixOverrides="and" >
+       <if test="type != null" >
+		 	and line_id =  #{lineId}
+		 </if>
+      </trim>
+    </where>
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trip_line
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from trip_line
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.cnnic.cnnicwebframework.home.vo.TripLine">
+    insert into trip_line (line_id, line_name)
+    values (#{lineId,jdbcType=INTEGER}, #{lineName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.cnnic.cnnicwebframework.home.vo.TripLine">
+    insert into trip_line
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lineId != null">
+        line_id,
+      </if>
+      <if test="lineName != null">
+        line_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lineId != null">
+        #{lineId,jdbcType=INTEGER},
+      </if>
+      <if test="lineName != null">
+        #{lineName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.cnnic.cnnicwebframework.home.vo.TripLine">
+    update trip_line
+    <set>
+      <if test="lineName != null">
+        line_name = #{lineName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.cnnic.cnnicwebframework.home.vo.TripLine">
+    update trip_line
+    set line_name = #{lineName,jdbcType=VARCHAR}
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+  
+    <!-- 取历史的 -->
+   <select id="getList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from trip_line 
+    <include refid="queryCondition" />
+  </select>
+  
+</mapper>

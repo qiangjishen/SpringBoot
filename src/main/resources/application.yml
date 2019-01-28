@@ -1,0 +1,30 @@
+
+spring:
+ thymeleaf:
+  prefix: classpath:/templates/
+  
+master: 
+  datasource: 
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://218.241.106.237:3306/pincb?useUnicode=true&characterEncoding=utf8
+    username: am_dns
+    password: am_dns 
+    maxActive: 5
+    maxIdle: 3
+    initialSize: 8
+cluster:
+  datasource: 
+    type: com.alibaba.druid.pool.DruidDataSource
+    name: druid
+    driverClassName: com.mysql.jdbc.Driver
+    url: mysql://218.241.106.237:3306/pincb?zeroDateTimeBehavior=convertToNull
+    userName: am_dns
+    password: am_dns
+    maxActive: 5
+    maxIdle: 3
+    
+
+logging:
+  level:
+    root: DEBUG

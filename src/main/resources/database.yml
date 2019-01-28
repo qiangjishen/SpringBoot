@@ -1,0 +1,8 @@
+mysql:
+  url: mysql://218.241.106.237:3306/pincb?zeroDateTimeBehavior=convertToNull
+  userName: am_dns
+  password: am_dns
+  maxActive: 5
+  maxIdle: 3
+  
+  

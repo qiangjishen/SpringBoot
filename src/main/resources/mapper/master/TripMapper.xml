@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cnnic.cnnicwebframework.mapper.TripMapper">
+  <resultMap id="BaseResultMap" type="cn.cnnic.cnnicwebframework.trip.vo.Trip">
+    <id column="trip_id" jdbcType="INTEGER" property="tripId" />
+    <result column="trip_name" jdbcType="VARCHAR" property="tripName" />
+    <result column="trip_date" jdbcType="TIMESTAMP" property="tripDate" />
+    <result column="trip_line" jdbcType="INTEGER" property="tripLine" />
+    <result column="owner_id" jdbcType="INTEGER" property="ownerId" />
+    <result column="trip_destination" jdbcType="VARCHAR" property="tripDestination" />
+    <result column="car_line" jdbcType="VARCHAR" property="carLine" />
+    <result column="free_num" jdbcType="INTEGER" property="freeNum" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+     <result column="car_color" jdbcType="VARCHAR" property="carColor" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    t.trip_id, t.trip_name, t.trip_date, t.trip_line, t.trip_destination, t.car_line, t.free_num, t.price, t.status, t.create_time, n.owner_name,n.car_color
+  </sql>
+  
+    <sql id="queryCondition" >
+    <where >
+      <trim prefixOverrides="and" >
+       <if test="type != null" >
+		 	and type =  #{type}
+		 </if>
+      </trim>
+    </where>
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trip
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from trip
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.cnnic.cnnicwebframework.trip.vo.Trip">
+    insert into trip (trip_id, trip_name, trip_date, 
+      trip_type, trip_destination, car_line, 
+      free_num, price, status, 
+      create_time)
+    values (#{tripId,jdbcType=INTEGER}, #{tripName,jdbcType=VARCHAR}, #{tripDate,jdbcType=TIMESTAMP}, 
+      #{tripType,jdbcType=INTEGER}, #{tripDestination,jdbcType=VARCHAR}, #{carLine,jdbcType=VARCHAR}, 
+      #{freeNum,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.cnnic.cnnicwebframework.trip.vo.Trip">
+    insert into trip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tripId != null">
+        trip_id,
+      </if>
+      <if test="tripName != null">
+        trip_name,
+      </if>
+      <if test="tripDate != null">
+        trip_date,
+      </if>
+      <if test="tripType != null">
+        trip_type,
+      </if>
+      <if test="tripDestination != null">
+        trip_destination,
+      </if>
+      <if test="carLine != null">
+        car_line,
+      </if>
+      <if test="freeNum != null">
+        free_num,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tripId != null">
+        #{tripId,jdbcType=INTEGER},
+      </if>
+      <if test="tripName != null">
+        #{tripName,jdbcType=VARCHAR},
+      </if>
+      <if test="tripDate != null">
+        #{tripDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tripType != null">
+        #{tripType,jdbcType=INTEGER},
+      </if>
+      <if test="tripDestination != null">
+        #{tripDestination,jdbcType=VARCHAR},
+      </if>
+      <if test="carLine != null">
+        #{carLine,jdbcType=VARCHAR},
+      </if>
+      <if test="freeNum != null">
+        #{freeNum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.cnnic.cnnicwebframework.trip.vo.Trip">
+    update trip
+    <set>
+      <if test="tripName != null">
+        trip_name = #{tripName,jdbcType=VARCHAR},
+      </if>
+      <if test="tripDate != null">
+        trip_date = #{tripDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tripType != null">
+        trip_type = #{tripType,jdbcType=INTEGER},
+      </if>
+      <if test="tripDestination != null">
+        trip_destination = #{tripDestination,jdbcType=VARCHAR},
+      </if>
+      <if test="carLine != null">
+        car_line = #{carLine,jdbcType=VARCHAR},
+      </if>
+      <if test="freeNum != null">
+        free_num = #{freeNum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.cnnic.cnnicwebframework.trip.vo.Trip">
+    update trip
+    set trip_name = #{tripName,jdbcType=VARCHAR},
+      trip_date = #{tripDate,jdbcType=TIMESTAMP},
+      trip_type = #{tripType,jdbcType=INTEGER},
+      trip_destination = #{tripDestination,jdbcType=VARCHAR},
+      car_line = #{carLine,jdbcType=VARCHAR},
+      free_num = #{freeNum,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 取历史的 -->
+   <select id="getTripListByType" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from trip t left join car_owner n on t.owner_id = n.owner_id
+    <include refid="queryCondition" />
+  </select>
+  
+</mapper>
