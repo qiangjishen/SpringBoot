@@ -1,4 +1,4 @@
-package cn.cnnic.sprngBoot2Famework;
+package cn.cnnic.sprngBoot2Famework.controller;
 
 import java.util.ArrayList;
 import java.util.List;
